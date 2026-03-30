@@ -6,18 +6,16 @@ title: Home
 <h1 class="page-title">Our Films</h1>
 
 <div class="movie-grid">
-{% assign ordered = site.data.movies %}
-{% for m in ordered %}
-    {% assign movie = site.movies | where:"movie_id", m.id | first %}
-    {% if movie %}
-    <div class="movie-card">
-        <a href="{{ movie.url }}">
-            <img 
-              src="https://www.ziyuehaishi.com/cdn-cgi/image/format=auto,quality=70,width=450/assets/images/{{ movie.poster }}"
-              alt="{{ movie.title }}">
-            <div class="movie-title">{{ movie.title }}</div>
-        </a>
-    </div>
-    {% endif %}
-{% endfor %}
+    {% assign sorted = site.data.movies | sort: "id" %}
+    {% for movie in sorted %}
+        <div class="movie-card">
+            <a href="/movies/{{ movie.file }}.html">
+                <img
+                    src="/cdn-cgi/image/format=auto,quality=70,width=450/assets/images/{{ movie.poster }}"
+                    alt="{{ movie.title }}"
+                >
+                <div class="movie-title">{{ movie.title }}</div>
+            </a>
+        </div>
+    {% endfor %}
 </div>
