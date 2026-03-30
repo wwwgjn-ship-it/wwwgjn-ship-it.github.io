@@ -1,5 +1,5 @@
 ---
-title: Red Boy: King of the Flaming Mountain
+title: "Red Boy: King of the Flaming Mountain"
 poster: red-boy-king-of-the-flaming-mountain.jpg
 genres: Animation, Kids, Fantasy, Adventure
 release_date: Coming Soon
