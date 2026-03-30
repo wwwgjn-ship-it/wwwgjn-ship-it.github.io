@@ -4,39 +4,63 @@ layout: default
 
 <div class="movie-page">
 
-    <div class="movie-left">
-        <img 
-          class="poster"
-          src="https://www.ziyuehaishi.com/cdn-cgi/image/format=auto,quality=70,width=600/assets/images/{{ page.poster }}"
-          alt="{{ page.title }}">
+  <div class="movie-left">
+    <img 
+      class="poster"
+      src="/cdn-cgi/image/format=auto,quality=70,width=650/assets/images/{{ page.poster }}"
+      alt="{{ page.title }}"
+    >
 
-        <ul class="movie-info">
-            <li><strong>Title:</strong> {{ page.title }}</li>
-            <li><strong>Genres:</strong> {{ page.genres }}</li>
-            <li><strong>Release:</strong> {{ page.release }}</li>
-            <li><strong>Duration:</strong> {{ page.duration }}</li>
-        </ul>
+    <div class="movie-info">
+      <p><strong>Genres:</strong> {{ page.genres }}</p>
+      <p><strong>Release:</strong> {{ page.release }}</p>
+      <p><strong>Duration:</strong> {{ page.duration }}</p>
+    </div>
+  </div>
 
-        <p><em>If you need the screener password, please email us.</em></p>
+  <div class="movie-right">
+
+    <h1 class="movie-title">{{ page.title }}</h1>
+
+    <div class="movie-description">
+      {{ content }}
     </div>
 
-    <div class="movie-right">
-        <h2>Synopsis</h2>
-        <p>{{ page.description }}</p>
+    <div class="trailer-section">
+      {% if page.trailer1 %}
+      <h2>Trailer</h2>
+      <iframe 
+        src="{{ page.trailer1 | replace: 'watch?v=', 'embed/' }}" 
+        frameborder="0" 
+        allowfullscreen>
+      </iframe>
+      {% endif %}
 
-        {% if page.trailer1 %}
-        <h2>Trailer</h2>
-        <iframe width="100%" height="315" src="{{ page.trailer1 }}" frameborder="0" allowfullscreen></iframe>
-        {% endif %}
-
-        {% if page.trailer2 %}
-        <iframe width="100%" height="315" src="{{ page.trailer2 }}" frameborder="0" allowfullscreen></iframe>
-        {% endif %}
-
-        {% if page.screener %}
-        <h2>Screener</h2>
-        <iframe width="100%" height="315" src="{{ page.screener }}" frameborder="0" allowfullscreen></iframe>
-        {% endif %}
+      {% if page.trailer2 %}
+      <h2>Trailer 2</h2>
+      <iframe 
+        src="{{ page.trailer2 | replace: 'watch?v=', 'embed/' }}"
+        frameborder="0" 
+        allowfullscreen>
+      </iframe>
+      {% endif %}
     </div>
+
+    {% if page.screener %}
+    <div class="screener-section">
+      <h2>Screener</h2>
+      <iframe 
+        src="{{ page.screener }}" 
+        frameborder="0" 
+        allowfullscreen>
+      </iframe>
+
+      <p class="password-note">
+        *The full film requires a password. Please email us to request it.*
+      </p>
+    </div>
+    {% endif %}
+
+  </div>
 
 </div>
