@@ -1,14 +1,21 @@
 ---
-title: Love Is Colder Than Death
-poster: love-is-colder-than-death.jpg
-genres: Romance, Mystery
-release_date: Coming Soon
-duration: 108min
-trailer1: https://youtu.be/7COTPBEbcP0
-screener: https://vimeo.com/1104049210?share=copy
-description: >
-  A 19-year-old woman dies mysteriously after traveling alone across a frozen frontier, leaving her lover Qiu Nuo 
-  consumed by grief and the need for answers. Torn between love, obsession, and danger, Qiu Nuo teams up with 
-  the enigmatic Tibetan Jiangcuo to uncover the truth. Amid harsh nature and hidden motives, the story explores 
-  loss, devotion, and the fragile human heart buried beneath the ice.
+layout: movie
+movie_id: 7
+title: "Love is Colder Than Death"
+poster: "love-is-colder-than-death.jpg"
+genres: "Romance, Mystery"
+release: "Soon"
+duration: "108 min"
 ---
+
+In the silence of the ancient glaciers, a 19-year-old woman leaves her lover and ventures alone into a frozen frontier, only to meet a mysterious death. Her lover, Qiu Nuo, falls into grief and obsession as he searches for the truth. Was it suicide, murder, or the brutality of nature?
+
+Guided by the enigmatic Tibetan Jiangcuo and threatened by natural forces, Qiu Nuo confronts the mystery of her lover’s fate — and the fragile essence of love itself. This is a stark meditation on loss and the unbearable weight of truth buried beneath the ice.
+
+**Trailer:**  
+https://youtu.be/7COTPBEbcP0
+
+**Screener:**  
+https://vimeo.com/1104049210?share=copy
+
+*The full film requires a password. Please email us to request it.*
