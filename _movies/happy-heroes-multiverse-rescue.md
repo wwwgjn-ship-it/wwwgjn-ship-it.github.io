@@ -1,5 +1,5 @@
 ---
-title: Happy Heroes: Multiverse Rescue
+title: "Happy Heroes: Multiverse Rescue"
 poster: happy-heroes-multiverse-rescue.jpg
 genres: Sci-Fi, Animation, Kids, Adventure
 release_date: 2024-01-20
