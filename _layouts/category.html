@@ -1,1 +1,19 @@
+---
+layout: default
+---
 
+<h1>{{ page.title }}</h1>
+
+<div class="category-grid movie-grid">
+    {% assign category = page.category %}
+    {% for movie in site.movies %}
+        {% if movie.genres contains category %}
+            <div class="movie-card">
+                <a href="{{ movie.url }}">
+                    <img src="/assets/images/{{ movie.poster }}" alt="{{ movie.title }}">
+                    <div class="movie-title">{{ movie.title }}</div>
+                </a>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
