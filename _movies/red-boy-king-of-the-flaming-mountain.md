@@ -1,12 +1,16 @@
 ---
+layout: movie
+movie_id: 11
 title: "Red Boy: King of the Flaming Mountain"
-poster: red-boy-king-of-the-flaming-mountain.jpg
-genres: Animation, Kids, Fantasy, Adventure
-release_date: Coming Soon
-duration: 80min
-trailer1: https://youtu.be/OWrNhT68JQ0
-description: >
-  Five hundred years before the Journey to the West, Red Boy is born with the tormenting Samadhi Fire within him. 
-  When Sun Wukong’s battle in Heaven scatters divine flames into the mortal world, the destinies of Red Boy and 
-  Qingluan become intertwined. A visually striking fantasy adventure about fate, heritage, and the search for power.
+poster: "red-boy-king-of-the-flaming-mountain.jpg"
+genres: "Animation, Kids"
+release: "Soon"
+duration: "80 min"
 ---
+
+Five hundred years before Tang Sanzang’s pilgrimage to the West, Qingluan seeks to restore her once-glorious clan and will stop at nothing to obtain the Samadhi True Fire. Meanwhile, Red Boy, born with the fire within him, suffers constant torment from its immense power.
+
+When Sun Wukong wreaks havoc in Heaven and topples the alchemy furnace of Laozi, divine flames rain down upon the mortal world, altering the destinies of Red Boy and Qingluan forever.
+
+**Trailer:**  
+https://youtu.be/OWrNhT68JQ0
