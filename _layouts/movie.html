@@ -1,1 +1,49 @@
+---
+layout: default
+---
 
+<div class="movie-container">
+
+    <!-- Poster -->
+    <div class="movie-poster">
+        <img src="/assets/images/{{ page.poster }}" alt="{{ page.title }}">
+    </div>
+
+    <!-- Info -->
+    <div class="movie-info">
+        <h1>{{ page.title }}</h1>
+
+        <p><strong>Genres:</strong> {{ page.genres }}</p>
+        <p><strong>Release Date:</strong> {{ page.release_date }}</p>
+        <p><strong>Duration:</strong> {{ page.duration }}</p>
+
+        <h2 class="section-title">Synopsis</h2>
+        <p>{{ page.description }}</p>
+
+        {% if page.trailer1 %}
+        <h2 class="section-title">Trailer 1</h2>
+        <div class="video-box">
+            <iframe src="{{ page.trailer1 }}" allowfullscreen></iframe>
+        </div>
+        {% endif %}
+
+        {% if page.trailer2 %}
+        <h2 class="section-title">Trailer 2</h2>
+        <div class="video-box">
+            <iframe src="{{ page.trailer2 }}" allowfullscreen></iframe>
+        </div>
+        {% endif %}
+
+        {% if page.screener %}
+        <h2 class="section-title">Full Movie (Screener)</h2>
+        <div class="video-box">
+            <iframe src="{{ page.screener }}" allowfullscreen></iframe>
+        </div>
+
+        <p style="margin-top: 8px; font-size: 14px; color: #bbb;">
+            If you need the password, please email us.
+        </p>
+        {% endif %}
+    </div>
+
+</div>
