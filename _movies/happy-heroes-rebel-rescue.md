@@ -1,5 +1,5 @@
 ---
-title: Happy Heroes: Rebel Rescue
+title: "Happy Heroes: Rebel Rescue"
 poster: happy-heroes-rebel-rescue.jpg
 genres: Sci-Fi, Animation, Kids, Adventure
 release_date: 2025-05-01
