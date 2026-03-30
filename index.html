@@ -3,69 +3,21 @@ layout: default
 title: Home
 ---
 
-<h1 style="text-align:center; margin-bottom: 40px; color: #ffffff;">
-    Our Films
-</h1>
+<h1 class="page-title">Our Films</h1>
 
 <div class="movie-grid">
-    {% assign movies = site.movies | sort: "order" %}
-    {% for movie in movies %}
-        <div class="movie-card">
-            <a href="{{ movie.url }}">
-                <img src="/assets/images/{{ movie.poster }}" alt="{{ movie.title }}">
-                <div class="movie-title">{{ movie.title }}</div>
-            </a>
-        </div>
-    {% endfor %}
+{% assign ordered = site.data.movies %}
+{% for m in ordered %}
+    {% assign movie = site.movies | where:"movie_id", m.id | first %}
+    {% if movie %}
+    <div class="movie-card">
+        <a href="{{ movie.url }}">
+            <img 
+              src="https://www.ziyuehaishi.com/cdn-cgi/image/format=auto,quality=70,width=450/assets/images/{{ movie.poster }}"
+              alt="{{ movie.title }}">
+            <div class="movie-title">{{ movie.title }}</div>
+        </a>
+    </div>
+    {% endif %}
+{% endfor %}
 </div>
-
-<style>
-/* 全站暗色背景 */
-body {
-    background-color: #0b0b0b;
-    color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-/* 电影网格布局 */
-.movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 30px;
-    padding: 20px 40px;
-}
-
-/* 单个电影卡片 */
-.movie-card {
-    background: #111111;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    text-align: center;
-}
-
-/* 鼠标悬停效果 */
-.movie-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.18);
-}
-
-/* 海报统一大小＋自动裁剪（最关键） */
-.movie-card img {
-    width: 100%;
-    height: 330px;        /* 统一海报高度（可调整） */
-    object-fit: cover;    /* 自动裁剪，永不变形 */
-    display: block;
-    background-color: #000;
-    border-radius: 6px;
-}
-
-/* 电影标题 */
-.movie-title {
-    padding: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: #ffffff;
-    background: #111111;
-}
-</style>
