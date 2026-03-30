@@ -1,1 +1,211 @@
+/* ================================
+   Global Dark Theme
+================================ */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0b0b0d;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #e5e5e5;
+}
 
+/* ================================
+   Header Navigation
+================================ */
+header {
+    background-color: #111;
+    padding: 20px 0;
+    border-bottom: 1px solid #222;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.nav-container a {
+    color: #ddd;
+    font-size: 18px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.nav-container a:hover {
+    color: #fff;
+}
+
+/* ================================
+   Page Container
+================================ */
+.page-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: auto;
+    padding: 40px 0;
+}
+
+/* ================================
+   Home Page – Movie Poster Grid
+================================ */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.movie-card {
+    text-align: center;
+    background-color: #151515;
+    padding: 10px;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.12);
+}
+
+.movie-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+.movie-title {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #fff;
+}
+
+/* Responsive Posters */
+@media (max-width: 1024px) {
+    .movie-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .movie-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ================================
+   Movie Page Layout
+================================ */
+.movie-container {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.movie-poster {
+    max-width: 350px;
+}
+
+.movie-info {
+    flex: 1;
+    min-width: 280px;
+}
+
+.movie-info h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.movie-info p {
+    line-height: 1.8;
+    font-size: 16px;
+    color: #ccc;
+}
+
+.section-title {
+    margin-top: 20px;
+    font-size: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 6px;
+}
+
+/* Trailer & Screener */
+.video-box {
+    margin-top: 20px;
+}
+
+iframe {
+    width: 100%;
+    min-height: 350px;
+    border: none;
+    border-radius: 6px;
+}
+
+/* ================================
+   Category Page
+================================ */
+.category-list {
+    margin-top: 30px;
+}
+
+.category-list a {
+    display: inline-block;
+    margin: 8px 12px 8px 0;
+    background-color: #222;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #ddd;
+}
+
+.category-list a:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+/* Category Grid */
+.category-grid {
+    margin-top: 40px;
+}
+
+/* ================================
+   About Us / Contact Page
+================================ */
+.about-text,
+.contact-text {
+    line-height: 1.8;
+    font-size: 18px;
+    color: #ccc;
+}
+
+.contact-item {
+    margin: 12px 0;
+}
+
+.contact-img {
+    width: 28px;
+    height: auto;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+/* ================================
+   Footer
+================================ */
+footer {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #111;
+    text-align: center;
+    color: #666;
+    border-top: 1px solid #222;
+}
+
+footer a {
+    color: #999;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #fff;
+}
