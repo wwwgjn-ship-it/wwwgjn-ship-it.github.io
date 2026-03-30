@@ -1,13 +1,21 @@
 ---
-title: Blade of Fury
-poster: blade-of-fury.jpg
-genres: Action, Martial Arts, Costume
-release_date: 2024-09-28
-duration: 90min
-trailer1: https://vimeo.com/1062779199?share=copy
-screener: https://vimeo.com/1062758664?share=copy
-description: >
-  The notorious assassin “Jackal” Pei Xing—renowned for his unstoppable blade—lives a cold and detached life 
-  until he witnesses the brutal murder of his righteous friend. Awakened by justice, he embarks on a relentless 
-  path of revenge, confronting deadly enemies and exposing corruption within the martial world.
+layout: movie
+movie_id: 14
+title: "Blade of Fury"
+poster: "blade-of-fury.jpg"
+genres: "Action, Wuxia, Historical"
+release: "2024-09-28"
+duration: "90 min"
 ---
+
+The legendary contract killer "Jackal" Pei Xing (played by Shi Xiaolong), feared by all and known for being nearly indestructible, lives a cold and detached life. But when he witnesses his righteous friend murdered by corrupt officials, buried justice awakens within him.
+
+Pei Xing embarks on a path of vengeance, confronting powerful assassins and exposing the dark crimes hidden behind the scenes.
+
+**Trailer:**  
+https://vimeo.com/1062779199?share=copy
+
+**Screener:**  
+https://vimeo.com/1062758664?share=copy
+
+*The full film requires a password. Please email us to request it.*
