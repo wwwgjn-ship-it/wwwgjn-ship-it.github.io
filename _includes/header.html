@@ -1,1 +1,16 @@
+<header>
+    <div class="nav-container">
 
+        <!-- Logo (optional clickable home) -->
+        <a href="/">
+            <img src="/assets/images/logo.png" 
+                 alt="Logo" 
+                 style="height:40px; vertical-align:middle; margin-right:15px;">
+        </a>
+
+        <!-- Navigation -->
+        {% for item in site.nav %}
+            <a href="{{ item.link }}">{{ item.name }}</a>
+        {% endfor %}
+    </div>
+</header>
