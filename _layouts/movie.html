@@ -26,25 +26,16 @@ layout: default
       {{ content }}
     </div>
 
+    {% if page.trailer %}
     <div class="trailer-section">
-      {% if page.trailer1 %}
       <h2>Trailer</h2>
       <iframe 
-        src="{{ page.trailer1 | replace: 'watch?v=', 'embed/' }}" 
+        src="{{ page.trailer | replace: 'watch?v=', 'embed/' }}" 
         frameborder="0" 
         allowfullscreen>
       </iframe>
-      {% endif %}
-
-      {% if page.trailer2 %}
-      <h2>Trailer 2</h2>
-      <iframe 
-        src="{{ page.trailer2 | replace: 'watch?v=', 'embed/' }}"
-        frameborder="0" 
-        allowfullscreen>
-      </iframe>
-      {% endif %}
     </div>
+    {% endif %}
 
     {% if page.screener %}
     <div class="screener-section">
