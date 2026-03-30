@@ -2,47 +2,40 @@
 layout: default
 ---
 
-<div class="movie-container">
+<div class="movie-page">
 
-    <!-- Poster -->
-    <div class="movie-poster">
-        <img src="/assets/images/{{ page.poster }}" alt="{{ page.title }}">
+    <div class="movie-left">
+        <img 
+          class="poster"
+          src="https://www.ziyuehaishi.com/cdn-cgi/image/format=auto,quality=70,width=600/assets/images/{{ page.poster }}"
+          alt="{{ page.title }}">
+
+        <ul class="movie-info">
+            <li><strong>Title:</strong> {{ page.title }}</li>
+            <li><strong>Genres:</strong> {{ page.genres }}</li>
+            <li><strong>Release:</strong> {{ page.release }}</li>
+            <li><strong>Duration:</strong> {{ page.duration }}</li>
+        </ul>
+
+        <p><em>If you need the screener password, please email us.</em></p>
     </div>
 
-    <!-- Info -->
-    <div class="movie-info">
-        <h1>{{ page.title }}</h1>
-
-        <p><strong>Genres:</strong> {{ page.genres }}</p>
-        <p><strong>Release Date:</strong> {{ page.release_date }}</p>
-        <p><strong>Duration:</strong> {{ page.duration }}</p>
-
-        <h2 class="section-title">Synopsis</h2>
+    <div class="movie-right">
+        <h2>Synopsis</h2>
         <p>{{ page.description }}</p>
 
         {% if page.trailer1 %}
-        <h2 class="section-title">Trailer 1</h2>
-        <div class="video-box">
-            <iframe src="{{ page.trailer1 }}" allowfullscreen></iframe>
-        </div>
+        <h2>Trailer</h2>
+        <iframe width="100%" height="315" src="{{ page.trailer1 }}" frameborder="0" allowfullscreen></iframe>
         {% endif %}
 
         {% if page.trailer2 %}
-        <h2 class="section-title">Trailer 2</h2>
-        <div class="video-box">
-            <iframe src="{{ page.trailer2 }}" allowfullscreen></iframe>
-        </div>
+        <iframe width="100%" height="315" src="{{ page.trailer2 }}" frameborder="0" allowfullscreen></iframe>
         {% endif %}
 
         {% if page.screener %}
-        <h2 class="section-title">Full Movie (Screener)</h2>
-        <div class="video-box">
-            <iframe src="{{ page.screener }}" allowfullscreen></iframe>
-        </div>
-
-        <p style="margin-top: 8px; font-size: 14px; color: #bbb;">
-            If you need the password, please email us.
-        </p>
+        <h2>Screener</h2>
+        <iframe width="100%" height="315" src="{{ page.screener }}" frameborder="0" allowfullscreen></iframe>
         {% endif %}
     </div>
 
