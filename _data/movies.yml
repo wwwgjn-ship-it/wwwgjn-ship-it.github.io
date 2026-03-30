@@ -1,1 +1,109 @@
+- id: 1
+  file: the-raid
+  title: "The Raid"
+  poster: "raid.jpg"
 
+- id: 2
+  file: the-royal-cat
+  title: "The Royal Cat"
+  poster: "royal-cat.jpg"
+
+- id: 3
+  file: welcome-to-my-side
+  title: "Welcome to My Side"
+  poster: "welcome-to-my-side.jpg"
+
+- id: 4
+  file: anecdotes-of-ape-mountain
+  title: "Anecdotes of Ape Mountain"
+  poster: "anecdotes-of-ape-mountain.jpg"
+
+- id: 5
+  file: bodyguard
+  title: "The Bodyguard"
+  poster: "bodyguard.jpg"
+
+- id: 6
+  file: dragon-and-three-eyed-man
+  title: "Dragon and Three-Eyed Man"
+  poster: "dragon-and-three-eyed-man.jpg"
+
+- id: 7
+  file: love-is-colder-than-death
+  title: "Love is Colder Than Death"
+  poster: "love-is-colder-than-death.jpg"
+
+- id: 8
+  file: striking-rescue
+  title: "Striking Rescue"
+  poster: "striking-rescue.jpg"
+
+- id: 9
+  file: happy-heroes-multiverse-rescue
+  title: "Happy Heroes: Multiverse Rescue"
+  poster: "happy-heroes-multiverse-rescue.jpg"
+
+- id: 10
+  file: happy-heroes-rebel-rescue
+  title: "Happy Heroes: Rebel Rescue"
+  poster: "happy-heroes-rebel-rescue.jpg"
+
+- id: 11
+  file: red-boy-king-of-the-flaming-mountain
+  title: "Red Boy: King of the Flaming Mountain"
+  poster: "red-boy-king-of-the-flaming-mountain.jpg"
+
+- id: 12
+  file: a-story-about-fire
+  title: "A Story About Fire"
+  poster: "a-story-about-fire.jpg"
+
+- id: 13
+  file: blue-sea
+  title: "Blue Sea"
+  poster: "blue-sea.jpg"
+
+- id: 14
+  file: blade-of-fury
+  title: "Blade of Fury"
+  poster: "blade-of-fury.jpg"
+
+- id: 15
+  file: extreme-city
+  title: "Extreme City"
+  poster: "extreme-city.jpg"
+
+- id: 16
+  file: super-water-monster
+  title: "Super Water Monster"
+  poster: "super-water-monster.jpg"
+
+- id: 17
+  file: mad-game
+  title: "The Mad Game"
+  poster: "mad-game.jpg"
+
+- id: 18
+  file: victims
+  title: "The Victims"
+  poster: "victims.jpg"
+
+- id: 19
+  file: eye-for-an-eye-2
+  title: "Eye for an Eye 2"
+  poster: "eye-for-an-eye-2.jpg"
+
+- id: 20
+  file: comeback
+  title: "The Comeback"
+  poster: "comeback.jpg"
+
+- id: 21
+  file: wild-blade-of-strangers
+  title: "The Wild Blade of Strangers"
+  poster: "wild-blade-of-strangers.jpg"
+
+- id: 22
+  file: tyrannosaurus-rex
+  title: "The Tyrannosaurus Rex"
+  poster: "tyrannosaurus-rex.png"
