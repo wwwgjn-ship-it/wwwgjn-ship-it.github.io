@@ -1,13 +1,19 @@
 ---
-title: The Tyrannosaurus Rex
-poster: tyrannosaurus-rex.png
-genres: Animation, Fantasy, Adventure
-release_date: 2022-10-01
-duration: 80min
-trailer1: https://vimeo.com/1009799789?share=copy
-screener: https://vimeo.com/1089923863?share=copy
-description: >
-  During the Cretaceous era, young Tyrannosaurus Xiao Di lives peacefully in the fertile Green Valley until his 
-  father’s sudden death forces him into a harsh journey of survival. Facing dangers, loneliness, and the struggle 
-  for identity, Xiao Di grows from a frightened hatchling into a courageous king destined to lead.
+layout: movie
+movie_id: 22
+title: "The Tyrannosaurus Rex"
+poster: "tyrannosaurus-rex.png"
+genres: "Animation, Fantasy, Adventure"
+release: "2022-10-01"
+duration: "80 min"
 ---
+
+During the Cretaceous period, Xiao Di, a young Tyrannosaurus Rex, lived peacefully as the carefree prince of Green Valley. But after the sudden death of his father, Xiao Di’s world collapses. Forced into exile, he endures countless challenges, gradually overcoming fear and loss, and eventually regaining the courage befitting a true king.
+
+**Trailer:**  
+https://vimeo.com/1009799789?share=copy
+
+**Screener:**  
+https://vimeo.com/1089923863?share=copy
+
+*The full film requires a password. Please email us to request it.*
