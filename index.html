@@ -1,146 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ziyue Haishi Film Rights</title>
+---
+layout: default
+title: Home
+---
 
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f4f4f4;
-        color: #333;
-    }
+<h1 style="text-align:center; margin-bottom: 30px;">
+    Our Films
+</h1>
 
-    /* Header */
-    header {
-        background: #000;
-        color: #fff;
-        padding: 40px 20px;
-        text-align: center;
-    }
-    header h1 {
-        margin: 0;
-        font-size: 32px;
-        letter-spacing: 1px;
-    }
-    header p {
-        margin-top: 10px;
-        font-size: 16px;
-        opacity: 0.8;
-    }
-
-    /* Main container */
-    .container {
-        width: 90%;
-        max-width: 1000px;
-        margin: auto;
-        padding: 30px 0;
-    }
-
-    h2 {
-        margin-top: 40px;
-        font-size: 24px;
-        border-left: 4px solid #000;
-        padding-left: 10px;
-    }
-
-    /* Film grid */
-    .film-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 20px;
-        margin-top: 20px;
-    }
-
-    .film {
-        background: #fff;
-        border-radius: 6px;
-        overflow: hidden;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-        transition: transform .2s;
-    }
-
-    .film:hover {
-        transform: scale(1.03);
-    }
-
-    .film img {
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-
-    .film-title {
-        padding: 10px;
-        font-size: 14px;
-        text-align: center;
-        background: #fff;
-    }
-
-    /* Footer */
-    footer {
-        background: #000;
-        color: #fff;
-        text-align: center;
-        padding: 20px 10px;
-        margin-top: 40px;
-        font-size: 14px;
-    }
-</style>
-</head>
-
-<body>
-
-<header>
-    <h1>Ziyue Haishi Film Rights</h1>
-    <p>International Film Rights • Global Distribution • Sales & Licensing</p>
-</header>
-
-<div class="container">
-    <h2>About Us</h2>
-    <p>
-        Ziyue Haishi is an international film rights and licensing company dedicated to bringing 
-        high-quality Asian films to the global market. We specialize in international distribution, 
-        sales representation, and worldwide licensing services for feature films, animations, 
-        and high-quality genre content. 
-    </p>
-
-    <h2>Films for International Sales</h2>
-
-    <div class="film-grid">
-
-        <!-- Film 1 -->
-        <div class="film">
-            <a href="https://vimeo.com/XXXXXXXX" target="_blank">
-                <img src="poster1.jpg" alt="Film Poster 1">
-                <div class="film-title">Film Title 1</div>
+<div class="movie-grid">
+    {% for movie in site.movies %}
+        <div class="movie-card">
+            <a href="{{ movie.url }}">
+                <img src="/assets/images/{{ movie.poster }}" alt="{{ movie.title }}">
+                <div class="movie-title">{{ movie.title }}</div>
             </a>
         </div>
-
-        <!-- Film 2 -->
-        <div class="film">
-            <a href="https://vimeo.com/XXXXXXXX" target="_blank">
-                <img src="poster2.jpg" alt="Film Poster 2">
-                <div class="film-title">Film Title 2</div>
-            </a>
-        </div>
-
-        <!-- Film 3 -->
-        <div class="film">
-            <a href="https://vimeo.com/XXXXXXXX" target="_blank">
-                <img src="poster3.jpg" alt="Film Poster 3">
-                <div class="film-title">Film Title 3</div>
-            </a>
-        </div>
-
-    </div>
+    {% endfor %}
 </div>
-
-<footer>
-    © 2024 Ziyue Haishi Film Rights. All Rights Reserved.
-</footer>
-
-</body>
-</html>
