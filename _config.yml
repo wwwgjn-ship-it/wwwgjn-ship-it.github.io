@@ -1,41 +1,19 @@
 title: "BEIJING ZI YUE HAI SHI CULTURAL MEDIA TECHNOLOGY CO., LTD"
-description: "International Film Rights · Global Distribution · Premium Chinese Films"
+email: "727755310@qq.com"
 baseurl: ""
 url: "https://www.ziyuehaishi.com"
 
-theme: minima
-
-# Collections for movies
 collections:
   movies:
     output: true
     permalink: /movies/:name/
 
-# Default Front Matter
+markdown: kramdown
+theme: minima
+
 defaults:
   - scope:
       path: ""
       type: "movies"
     values:
       layout: "movie"
-
-# Markdown settings
-markdown: kramdown
-kramdown:
-  input: GFM
-
-# Plugins allowed by GitHub Pages
-plugins:
-  - jekyll-seo-tag
-  - jekyll-sitemap
-
-# Navigation items (for header)
-nav:
-  - name: "Home"
-    link: "/"
-  - name: "Categories"
-    link: "/categories.html"
-  - name: "About Us"
-    link: "/about.html"
-  - name: "Contact Us"
-    link: "/contact.html"
