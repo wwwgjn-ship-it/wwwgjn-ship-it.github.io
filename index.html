@@ -230,6 +230,7 @@
 </section>
 
 <!-- 影片库（22部电影 - 6页+横向滚动版） -->
+<!-- 影片库（22部电影 - 6页+横向滚动+详情弹窗版） -->
 <section id="movies" class="section">
     <h2 class="section-title" style="position: relative; text-align: center;">
         <span style="position: relative; left: 25px;">Film Catalog • Rights Available</span>
@@ -240,17 +241,16 @@
                 transform: translateX(-50%) !important;
                 margin: 0 !important;
             }
-            /* 横向滚动容器 - 核心样式 */
+            /* 横向滚动容器 */
             .movie-scroll {
                 display: flex;
                 gap: 30px;
                 padding: 0 20px;
                 overflow-x: auto;
-                scrollbar-width: thin; /* Firefox滚动条美化 */
+                scrollbar-width: thin;
                 scrollbar-color: #e63946 #f8f9fa;
                 margin-bottom: 20px;
             }
-            /* Chrome/Edge滚动条美化 */
             .movie-scroll::-webkit-scrollbar {
                 height: 6px;
             }
@@ -258,12 +258,26 @@
                 background: #e63946;
                 border-radius: 3px;
             }
-            /* 电影卡片固定宽度，保证统一 */
+            /* 电影卡片 - 增加点击光标 */
             .movie-card {
                 flex: 0 0 280px;
                 margin-bottom: 10px;
+                cursor: pointer; /* 鼠标移上去变手型 */
+                transition: transform 0.3s; /* 点击动画 */
             }
-            /* 分页按钮样式 - 居中、美观 */
+            .movie-card:hover {
+                transform: scale(1.02); /*  hover放大 */
+            }
+            .movie-img {
+                width: 100%;
+                height: 400px; /* 海报高度统一 */
+                object-fit: cover; /* 防止拉伸 */
+                border-radius: 8px;
+            }
+            .movie-info {
+                padding: 10px;
+            }
+            /* 分页按钮样式 */
             .movie-pagination {
                 text-align: center;
                 margin: 20px 0 40px;
@@ -286,55 +300,150 @@
             .movie-pagination button:hover:not(.active) {
                 background: #f8f9fa;
             }
+
+            /* ========== 电影详情弹窗核心样式 ========== */
+            .movie-modal {
+                position: fixed; /* 固定在屏幕中间 */
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.85); /* 半透明黑背景 */
+                z-index: 9999; /* 置顶显示 */
+                display: none; /* 默认隐藏 */
+                overflow-y: auto; /* 内容过长可滚动 */
+            }
+            /* 弹窗内容容器 */
+            .modal-content {
+                width: 90%;
+                max-width: 1200px;
+                margin: 50px auto;
+                background: #fff;
+                border-radius: 12px;
+                padding: 30px;
+                position: relative;
+            }
+            /* 关闭按钮 */
+            .close-modal {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 24px;
+                cursor: pointer;
+                color: #e63946;
+                background: none;
+                border: none;
+            }
+            /* 详情布局：左海报 + 右信息 */
+            .movie-detail {
+                display: flex;
+                gap: 30px;
+                margin-bottom: 30px;
+                flex-wrap: wrap; /* 移动端自适应 */
+            }
+            .detail-poster {
+                flex: 0 0 300px;
+            }
+            .detail-poster img {
+                width: 100%;
+                border-radius: 8px;
+            }
+            .detail-info {
+                flex: 1;
+                min-width: 300px;
+            }
+            .detail-info h2 {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #333;
+            }
+            .detail-info p {
+                font-size: 16px;
+                margin: 10px 0;
+                line-height: 1.6;
+            }
+            .detail-info .label {
+                font-weight: bold;
+                color: #e63946;
+            }
+            /* 视频播放区域 */
+            .video-section {
+                margin: 30px 0;
+            }
+            .video-section h3 {
+                font-size: 20px;
+                margin-bottom: 15px;
+                color: #333;
+            }
+            .video-player {
+                width: 100%;
+                height: 600px; /* 播放器高度 */
+                border: none; /* 去掉边框 */
+                border-radius: 8px;
+            }
+            /* 视频链接按钮 */
+            .video-btn {
+                display: inline-block;
+                padding: 10px 20px;
+                background: #e63946;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 5px;
+                margin: 10px 10px 10px 0;
+                transition: 0.3s;
+            }
+            .video-btn:hover {
+                background: #c1121f;
+            }
         </style>
     </h2>
 
     <!-- 横向滚动容器（默认显示第一页） -->
     <div id="movieContainer" class="movie-scroll">
-        <!-- 第1页：4部电影 -->
-        <div class="movie-card">
-            <img src="https://picsum.photos/id/237/600/800" class="movie-img" alt="电影海报">
+        <!-- 第1页默认占位（会被JS替换） -->
+        <div class="movie-card" onclick="openModal(1)">
+            <img src="images/raid.jpg" class="movie-img" alt="The Raid">
             <div class="movie-info">
-                <h3>The Lighthouse Far Away</h3>
-                <p>Genre: Drama / Family</p>
-                <p>Duration: 118 mins</p>
-                <p>Region: China</p>
-                <p class="right">Rights: Global Available</p>
-            </div>
-        </div>
-        <div class="movie-card">
-            <img src="https://picsum.photos/id/177/600/800" class="movie-img" alt="电影海报">
-            <div class="movie-info">
-                <h3>Speed Pursuit</h3>
+                <h3>The Raid</h3>
                 <p>Genre: Action / Crime</p>
-                <p>Duration: 105 mins</p>
+                <p>Duration: 74 mins</p>
                 <p>Region: China</p>
                 <p class="right">Rights: Global Available</p>
             </div>
         </div>
-        <div class="movie-card">
-            <img src="https://picsum.photos/id/180/600/800" class="movie-img" alt="电影海报">
+        <div class="movie-card" onclick="openModal(2)">
+            <img src="images/royal-cat.jpg" class="movie-img" alt="The Royal Cat">
             <div class="movie-info">
-                <h3>Star Traveler</h3>
-                <p>Genre: Sci-Fi / Adventure</p>
-                <p>Duration: 125 mins</p>
+                <h3>The Royal Cat</h3>
+                <p>Genre: Animation / Fantasy / Mystery</p>
+                <p>Duration: 97 mins</p>
+                <p>Region: China</p>
+                <p class="right">Rights: Global Available</p>
+            </div>
+        </div>
+        <div class="movie-card" onclick="openModal(3)">
+            <img src="images/welcome-to-my-side.jpg" class="movie-img" alt="Welcome to My Side">
+            <div class="movie-info">
+                <h3>Welcome to My Side</h3>
+                <p>Genre: Romance / Comedy / Fantasy</p>
+                <p>Duration: 102 mins</p>
                 <p>Region: Co-Production</p>
                 <p class="right">Rights: Global Available</p>
             </div>
         </div>
-        <div class="movie-card">
-            <img src="https://picsum.photos/id/185/600/800" class="movie-img" alt="电影海报">
+        <div class="movie-card" onclick="openModal(4)">
+            <img src="images/anecdotes-of-ape-mountain.jpg" class="movie-img" alt="Anecdotes of Ape Mountain">
             <div class="movie-info">
-                <h3>City Gleam</h3>
-                <p>Genre: Romance / Art</p>
-                <p>Duration: 98 mins</p>
+                <h3>Anecdotes of Ape Mountain</h3>
+                <p>Genre: Drama / Mystery / Thriller</p>
+                <p>Duration: 75 mins</p>
                 <p>Region: China</p>
                 <p class="right">Rights: Global Available</p>
             </div>
         </div>
     </div>
 
-    <!-- 分页按钮（22部电影 → 分6页：4+4+4+4+4+2） -->
+    <!-- 分页按钮 -->
     <div class="movie-pagination">
         <button class="active" onclick="showPage(1)">1</button>
         <button onclick="showPage(2)">2</button>
@@ -344,65 +453,140 @@
         <button onclick="showPage(6)">6</button>
     </div>
 
-    <!-- 分页逻辑JS（无需额外文件，直接嵌入） -->
+    <!-- ========== 电影详情弹窗（核心新增） ========== -->
+    <div id="movieModal" class="movie-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <div id="modalDetail" class="movie-detail">
+                <!-- 弹窗内容会被JS动态填充 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 核心JS：分页+弹窗+视频播放 -->
     <script>
-        // 所有电影数据（22部，按6页分组：前5页4部，第6页2部）
+        // 1. 所有电影完整数据（含详情+视频链接）
         const moviePages = [
-            // 第1页：4部
+            // 第1页：4部（含完整详情）
             [
-                {img: "images/raid.jpg", title: "The Raid", genre: "Action / Crime", duration: "74 mins", region: "China"},
-                {img: "images/royal-cat.jpg", title: "The Royal Cat", genre: "Animation / Fantasy / Mystery", duration: "97 mins", region: "China"},
-                {img: "images/welcome-to-my-side.jpg", title: "Welcome to My Side", genre: "Romance / Comedy / Fantasy", duration: "102 mins", region: "Co-Production"},
-                {img: "images/anecdotes-of-ape-mountain.jpg", title: "Anecdotes of Ape Mountain", genre: "Drama / Mystery / Thriller", duration: "75 mins", region: "China"}
+                {
+                    id: 1,
+                    img: "images/raid.jpg",
+                    title: "The Raid",
+                    genre: "Action / Crime",
+                    duration: "74 mins",
+                    region: "China",
+                    // 新增详情字段
+                    director: "Zhang San",
+                    cast: "Li Si, Wang Wu, Zhao Liu",
+                    releaseDate: "2024-01-15",
+                    synopsis: "A group of elite police officers launch a raid on a criminal den in the city, facing intense battles and unexpected betrayals. This film features high-octane action sequences and realistic fight choreography.",
+                    // YouTube/Vimeo视频链接（替换成你的真实链接）
+                    trailer: "https://www.youtube.com/embed/dQw4w9WgXcQ", // YouTube嵌入链接（需用embed格式）
+                    fullMovie: "https://player.vimeo.com/video/123456789" // Vimeo嵌入链接
+                },
+                {
+                    id: 2,
+                    img: "images/royal-cat.jpg",
+                    title: "The Royal Cat",
+                    genre: "Animation / Fantasy / Mystery",
+                    duration: "97 mins",
+                    region: "China",
+                    director: "Li Qi",
+                    cast: "Voice: Zhou Ba, Wu Jiu",
+                    releaseDate: "2024-02-20",
+                    synopsis: "A magical cat from the royal palace embarks on a journey to find the lost treasure, encountering various fantasy creatures and solving mysterious puzzles along the way.",
+                    trailer: "https://www.youtube.com/embed/9bZkp7q19f0",
+                    fullMovie: "https://player.vimeo.com/video/987654321"
+                },
+                {
+                    id: 3,
+                    img: "images/welcome-to-my-side.jpg",
+                    title: "Welcome to My Side",
+                    genre: "Romance / Comedy / Fantasy",
+                    duration: "102 mins",
+                    region: "Co-Production",
+                    director: "Wang Shi",
+                    cast: "Chen Shi, Yang Shi",
+                    releaseDate: "2024-03-10",
+                    synopsis: "A ordinary girl meets a magical boy from another world, and their hilarious and romantic adventure begins. A heartwarming story about love and courage.",
+                    trailer: "https://www.youtube.com/embed/3ohzBxoFHAY",
+                    fullMovie: "https://player.vimeo.com/video/456789123"
+                },
+                {
+                    id: 4,
+                    img: "images/anecdotes-of-ape-mountain.jpg",
+                    title: "Anecdotes of Ape Mountain",
+                    genre: "Drama / Mystery / Thriller",
+                    duration: "75 mins",
+                    region: "China",
+                    director: "Zhao Ba",
+                    cast: "Hu Jiu, He Shi",
+                    releaseDate: "2024-04-05",
+                    synopsis: "A journalist travels to Ape Mountain to investigate a series of mysterious disappearances, uncovering a dark secret hidden in the mountain for decades.",
+                    trailer: "https://www.youtube.com/embed/7WJjFFPQlbY",
+                    fullMovie: "https://player.vimeo.com/video/789123456"
+                }
             ],
-            // 第2页：4部
+            // 第2页：4部（示例，按上面格式补充你的数据）
             [
-                {img: "https://picsum.photos/id/190/600/800", title: "Ocean Secret", genre: "Animation / Fantasy", duration: "88 mins", region: "China"},
-                {img: "https://picsum.photos/id/195/600/800", title: "Mountain Hero", genre: "Action / Drama", duration: "110 mins", region: "China"},
-                {img: "https://picsum.photos/id/200/600/800", title: "Desert Journey", genre: "Adventure / Thriller", duration: "102 mins", region: "China"},
-                {img: "https://picsum.photos/id/205/600/800", title: "Cyber World", genre: "Sci-Fi / Action", duration: "115 mins", region: "Co-Production"}
+                {
+                    id: 5,
+                    img: "images/movie5.jpg",
+                    title: "Movie 5",
+                    genre: "Action / Drama",
+                    duration: "110 mins",
+                    region: "China",
+                    director: "Test Director",
+                    cast: "Test Cast",
+                    releaseDate: "2024-05-01",
+                    synopsis: "Test synopsis for movie 5.",
+                    trailer: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                    fullMovie: "https://player.vimeo.com/video/112233445"
+                },
+                {id:6, img:"images/movie6.jpg", title:"Movie 6", genre:"Sci-Fi / Adventure", duration:"120 mins", region:"Co-Production", director:"Test", cast:"Test", releaseDate:"2024-06-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/556677889"},
+                {id:7, img:"images/movie7.jpg", title:"Movie 7", genre:"Comedy / Family", duration:"85 mins", region:"China", director:"Test", cast:"Test", releaseDate:"2024-07-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/998877665"},
+                {id:8, img:"images/movie8.jpg", title:"Movie 8", genre:"Horror / Mystery", duration:"90 mins", region:"China", director:"Test", cast:"Test", releaseDate:"2024-08-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/554433221"}
             ],
-            // 第3页：4部
+            // 第3页：4部（示例）
             [
-                {img: "https://picsum.photos/id/210/600/800", title: "Family Bond", genre: "Drama / Comedy", duration: "95 mins", region: "China"},
-                {img: "https://picsum.photos/id/215/600/800", title: "Night Detective", genre: "Crime / Mystery", duration: "120 mins", region: "China"},
-                {img: "https://picsum.photos/id/220/600/800", title: "Sky Warrior", genre: "Action / War", duration: "112 mins", region: "China"},
-                {img: "https://picsum.photos/id/225/600/800", title: "Forest Tale", genre: "Animation / Family", duration: "85 mins", region: "China"}
+                {id:9, img:"images/movie9.jpg", title:"Movie 9", genre:"Romance / Drama", duration:"95 mins", region:"China", director:"Test", cast:"Test", releaseDate:"2024-09-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/112233445"},
+                {id:10, img:"images/movie10.jpg", title:"Movie 10", genre:"Action / Thriller", duration:"105 mins", region:"China", director:"Test", cast:"Test", releaseDate:"2024-10-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/556677889"},
+                {id:11, img:"images/movie11.jpg", title:"Movie 11", genre:"Animation / Family", duration:"80 mins", region:"Co-Production", director:"Test", cast:"Test", releaseDate:"2024-11-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/998877665"},
+                {id:12, img:"images/movie12.jpg", title:"Movie 12", genre:"Drama / War", duration:"115 mins", region:"China", director:"Test", cast:"Test", releaseDate:"2024-12-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/554433221"}
             ],
-            // 第4页：4部
+            // 第4页：4部（示例）
             [
-                {img: "https://picsum.photos/id/230/600/800", title: "Time Loop", genre: "Sci-Fi / Thriller", duration: "108 mins", region: "Co-Production"},
-                {img: "https://picsum.photos/id/235/600/800", title: "Urban Legend", genre: "Horror / Mystery", duration: "90 mins", region: "China"},
-                {img: "https://picsum.photos/id/240/600/800", title: "Music Dream", genre: "Musical / Drama", duration: "105 mins", region: "China"},
-                {img: "https://picsum.photos/id/245/600/800", title: "Space Mission", genre: "Sci-Fi / Adventure", duration: "128 mins", region: "Co-Production"}
+                {id:13, img:"images/movie13.jpg", title:"Movie 13", genre:"Sci-Fi / Thriller", duration:"108 mins", region:"Co-Production", director:"Test", cast:"Test", releaseDate:"2025-01-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/112233445"},
+                {id:14, img:"images/movie14.jpg", title:"Movie 14", genre:"Crime / Drama", duration:"112 mins", region:"China", director:"Test", cast:"Test", releaseDate:"2025-02-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/556677889"},
+                {id:15, img:"images/movie15.jpg", title:"Movie 15", genre:"Fantasy / Adventure", duration:"98 mins", region:"China", director:"Test", cast:"Test", releaseDate:"2025-03-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/998877665"},
+                {id:16, img:"images/movie16.jpg", title:"Movie 16", genre:"Comedy / Romance", duration:"88 mins", region:"China", director:"Test", cast:"Test", releaseDate:"2025-04-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/554433221"}
             ],
-            // 第5页：4部
+            // 第5页：4部（示例）
             [
-                {img: "https://picsum.photos/id/250/600/800", title: "Village Story", genre: "Drama / Rural", duration: "98 mins", region: "China"},
-                {img: "https://picsum.photos/id/255/600/800", title: "Police Story", genre: "Action / Crime", duration: "110 mins", region: "China"},
-                {img: "https://picsum.photos/id/260/600/800", title: "Love Letter", genre: "Romance / Drama", duration: "92 mins", region: "China"},
-                {img: "https://picsum.photos/id/265/600/800", title: "Ghost Hunter", genre: "Fantasy / Action", duration: "100 mins", region: "China"}
+                {id:17, img:"images/movie17.jpg", title:"Movie 17", genre:"Action / Fantasy", duration:"100 mins", region:"China", director:"Test", cast:"Test", releaseDate:"2025-05-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/112233445"},
+                {id:18, img:"images/movie18.jpg", title:"Movie 18", genre:"Drama / Mystery", duration:"92 mins", region:"Co-Production", director:"Test", cast:"Test", releaseDate:"2025-06-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/556677889"},
+                {id:19, img:"images/movie19.jpg", title:"Movie 19", genre:"Animation / Adventure", duration:"82 mins", region:"China", director:"Test", cast:"Test", releaseDate:"2025-07-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/998877665"},
+                {id:20, img:"images/movie20.jpg", title:"Movie 20", genre:"Thriller / Crime", duration:"103 mins", region:"China", director:"Test", cast:"Test", releaseDate:"2025-08-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/554433221"}
             ],
-            // 第6页：2部（剩余2部）
+            // 第6页：2部（示例）
             [
-                {img: "https://picsum.photos/id/270/600/800", title: "Food Journey", genre: "Comedy / Food", duration: "88 mins", region: "China"},
-                {img: "https://picsum.photos/id/275/600/800", title: "War Memory", genre: "Drama / War", duration: "115 mins", region: "China"}
+                {id:21, img:"images/movie21.jpg", title:"Movie 21", genre:"Drama / Family", duration:"96 mins", region:"China", director:"Test", cast:"Test", releaseDate:"2025-09-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/112233445"},
+                {id:22, img:"images/movie22.jpg", title:"Movie 22", genre:"Action / Adventure", duration:"107 mins", region:"Co-Production", director:"Test", cast:"Test", releaseDate:"2025-10-01", synopsis:"Test", trailer:"https://www.youtube.com/embed/dQw4w9WgXcQ", fullMovie:"https://player.vimeo.com/video/556677889"}
             ]
         ];
 
-        // 分页切换函数
+        // 2. 分页切换函数
         function showPage(pageNum) {
-            // 1. 清空容器
             const container = document.getElementById("movieContainer");
             container.innerHTML = "";
-            
-            // 2. 获取当前页的电影数据
             const currentMovies = moviePages[pageNum - 1];
             
-            // 3. 生成电影卡片
+            // 生成当前页的电影卡片（增加点击事件）
             currentMovies.forEach(movie => {
                 const card = document.createElement("div");
                 card.className = "movie-card";
+                card.onclick = () => openModal(movie.id); // 点击卡片打开弹窗
                 card.innerHTML = `
                     <img src="${movie.img}" class="movie-img" alt="${movie.title}">
                     <div class="movie-info">
@@ -415,14 +599,80 @@
                 `;
                 container.appendChild(card);
             });
-            
-            // 4. 更新分页按钮样式
+
+            // 更新分页按钮样式
             const buttons = document.querySelectorAll(".movie-pagination button");
             buttons.forEach(btn => btn.classList.remove("active"));
             buttons[pageNum - 1].classList.add("active");
-            
-            // 5. 滚动条回到最左侧
             container.scrollLeft = 0;
+        }
+
+        // 3. 打开电影详情弹窗
+        function openModal(movieId) {
+            // 找到对应ID的电影数据
+            let targetMovie = null;
+            // 遍历所有页面的电影
+            moviePages.forEach(page => {
+                page.forEach(movie => {
+                    if (movie.id === movieId) {
+                        targetMovie = movie;
+                    }
+                });
+            });
+
+            if (!targetMovie) return;
+
+            // 填充弹窗内容（含视频播放器）
+            const modalDetail = document.getElementById("modalDetail");
+            modalDetail.innerHTML = `
+                <div class="detail-poster">
+                    <img src="${targetMovie.img}" alt="${targetMovie.title}">
+                </div>
+                <div class="detail-info">
+                    <h2>${targetMovie.title}</h2>
+                    <p><span class="label">Director:</span> ${targetMovie.director}</p>
+                    <p><span class="label">Cast:</span> ${targetMovie.cast}</p>
+                    <p><span class="label">Release Date:</span> ${targetMovie.releaseDate}</p>
+                    <p><span class="label">Duration:</span> ${targetMovie.duration}</p>
+                    <p><span class="label">Genre:</span> ${targetMovie.genre}</p>
+                    <p><span class="label">Region:</span> ${targetMovie.region}</p>
+                    <p><span class="label">Synopsis:</span> ${targetMovie.synopsis}</p>
+                    
+                    <!-- 预告片播放区域 -->
+                    <div class="video-section">
+                        <h3>Trailer</h3>
+                        <iframe class="video-player" src="${targetMovie.trailer}" allowfullscreen></iframe>
+                        <a href="${targetMovie.trailer.replace('embed/', 'watch?v=')}" target="_blank" class="video-btn">Watch on YouTube</a>
+                    </div>
+
+                    <!-- 全片播放区域 -->
+                    <div class="video-section">
+                        <h3>Full Movie</h3>
+                        <iframe class="video-player" src="${targetMovie.fullMovie}" allowfullscreen></iframe>
+                        <a href="${targetMovie.fullMovie.replace('player.vimeo.com/video/', 'vimeo.com/')}" target="_blank" class="video-btn">Watch on Vimeo</a>
+                    </div>
+                </div>
+            `;
+
+            // 显示弹窗
+            document.getElementById("movieModal").style.display = "block";
+            // 禁止页面滚动
+            document.body.style.overflow = "hidden";
+        }
+
+        // 4. 关闭弹窗
+        function closeModal() {
+            document.getElementById("movieModal").style.display = "none";
+            // 恢复页面滚动
+            document.body.style.overflow = "auto";
+        }
+
+        // 点击弹窗外部关闭
+        window.onclick = function(event) {
+            const modal = document.getElementById("movieModal");
+            if (event.target === modal) {
+                closeModal();
+            }
         }
     </script>
 </section>
