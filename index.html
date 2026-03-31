@@ -229,66 +229,202 @@
     </div>
 </section>
 
-<!-- 影片库 -->
+<!-- 影片库（22部电影 - 6页+横向滚动版） -->
 <section id="movies" class="section">
-    <!-- 核心调整：标题文字右移，红线保持居中，• 落在红线上 -->
     <h2 class="section-title" style="position: relative; text-align: center;">
         <span style="position: relative; left: 25px;">Film Catalog • Rights Available</span>
-        <!-- 强制红线居中，和About Us完全对齐 -->
         <style>
+            /* 红线居中对齐 */
             #movies .section-title::after {
                 left: 50% !important;
                 transform: translateX(-50%) !important;
                 margin: 0 !important;
             }
+            /* 横向滚动容器 - 核心样式 */
+            .movie-scroll {
+                display: flex;
+                gap: 30px;
+                padding: 0 20px;
+                overflow-x: auto;
+                scrollbar-width: thin; /* Firefox滚动条美化 */
+                scrollbar-color: #e63946 #f8f9fa;
+                margin-bottom: 20px;
+            }
+            /* Chrome/Edge滚动条美化 */
+            .movie-scroll::-webkit-scrollbar {
+                height: 6px;
+            }
+            .movie-scroll::-webkit-scrollbar-thumb {
+                background: #e63946;
+                border-radius: 3px;
+            }
+            /* 电影卡片固定宽度，保证统一 */
+            .movie-card {
+                flex: 0 0 280px;
+                margin-bottom: 10px;
+            }
+            /* 分页按钮样式 - 居中、美观 */
+            .movie-pagination {
+                text-align: center;
+                margin: 20px 0 40px;
+            }
+            .movie-pagination button {
+                padding: 8px 15px;
+                margin: 0 5px;
+                border: 1px solid #e63946;
+                background: #fff;
+                color: #e63946;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: 0.3s;
+                font-size: 14px;
+            }
+            .movie-pagination button.active {
+                background: #e63946;
+                color: #fff;
+            }
+            .movie-pagination button:hover:not(.active) {
+                background: #f8f9fa;
+            }
         </style>
     </h2>
-    <div class="movies">
-        <!-- 影片1 -->
+
+    <!-- 横向滚动容器（默认显示第一页） -->
+    <div id="movieContainer" class="movie-scroll">
+        <!-- 第1页：4部电影 -->
         <div class="movie-card">
-            <img src="images/raid.jpg" class="movie-img" alt="电影海报">
+            <img src="https://picsum.photos/id/237/600/800" class="movie-img" alt="电影海报">
             <div class="movie-info">
-                <h3>《The Raid》</h3>
-                <p>Genre：Action / Crime</p>
-                <p>Duration：74min</p>
-                <p>Region：China</p>
-                <p class="right">Rights: Available Worldwide</p>
+                <h3>The Lighthouse Far Away</h3>
+                <p>Genre: Drama / Family</p>
+                <p>Duration: 118 mins</p>
+                <p>Region: China</p>
+                <p class="right">Rights: Global Available</p>
             </div>
         </div>
-        <!-- 影片2 -->
         <div class="movie-card">
-            <img src="images/royal-cat.jpg" class="movie-img" alt="电影海报">
+            <img src="https://picsum.photos/id/177/600/800" class="movie-img" alt="电影海报">
             <div class="movie-info">
-                <h3>《The Royal Cat》</h3>
-                <p>Genre：Animation / Fantasy / Mystery</p>
-                <p>Duration：97min</p>
-                <p>Region：China</p>
-                <p class="right">Rights: Available Worldwide</p>
+                <h3>Speed Pursuit</h3>
+                <p>Genre: Action / Crime</p>
+                <p>Duration: 105 mins</p>
+                <p>Region: China</p>
+                <p class="right">Rights: Global Available</p>
             </div>
         </div>
-        <!-- 影片3 -->
         <div class="movie-card">
-            <img src="images/welcome-to-my-side.jpg" class="movie-img" alt="电影海报">
+            <img src="https://picsum.photos/id/180/600/800" class="movie-img" alt="电影海报">
             <div class="movie-info">
-                <h3>《Welcome to My Side》</h3>
-                <p>Genre：Romance / Comedy / Fantasy</p>
-                <p>Duration：102min</p>
-                <p>Region：China</p>
-                <p class="right">Rights: Available Worldwide</p>
+                <h3>Star Traveler</h3>
+                <p>Genre: Sci-Fi / Adventure</p>
+                <p>Duration: 125 mins</p>
+                <p>Region: Co-Production</p>
+                <p class="right">Rights: Global Available</p>
             </div>
         </div>
-        <!-- 影片4 -->
         <div class="movie-card">
-            <img src="images/anecdotes-of-ape-mountain.jpg" class="movie-img" alt="电影海报">
+            <img src="https://picsum.photos/id/185/600/800" class="movie-img" alt="电影海报">
             <div class="movie-info">
-                <h3>《Anecdotes of Ape Mountain》</h3>
-                <p>Genre：Drama / Mystery / Thriller</p>
-                <p>Duration：75min</p>
-                <p>Region：China</p>
-                <p class="right">Rights: Available Worldwide</p>
+                <h3>City Gleam</h3>
+                <p>Genre: Romance / Art</p>
+                <p>Duration: 98 mins</p>
+                <p>Region: China</p>
+                <p class="right">Rights: Global Available</p>
             </div>
         </div>
     </div>
+
+    <!-- 分页按钮（22部电影 → 分6页：4+4+4+4+4+2） -->
+    <div class="movie-pagination">
+        <button class="active" onclick="showPage(1)">1</button>
+        <button onclick="showPage(2)">2</button>
+        <button onclick="showPage(3)">3</button>
+        <button onclick="showPage(4)">4</button>
+        <button onclick="showPage(5)">5</button>
+        <button onclick="showPage(6)">6</button>
+    </div>
+
+    <!-- 分页逻辑JS（无需额外文件，直接嵌入） -->
+    <script>
+        // 所有电影数据（22部，按6页分组：前5页4部，第6页2部）
+        const moviePages = [
+            // 第1页：4部
+            [
+                {img: "images/raid.jpg", title: "The Raid", genre: "Action / Crime": "74 mins", region: "China"},
+                {img: "images/royal-cat.jpg", title: "The Royal Cat", genre: "Animation / Fantasy / Mystery", duration: "97 mins", region: "China"},
+                {img: "images/welcome-to-my-side.jpg", title: "Welcome to My Side", genre: "Romance / Comedy / Fantasy", duration: "102 mins", region: "Co-Production"},
+                {img: "images/anecdotes-of-ape-mountain.jpg", title: "Anecdotes of Ape Mountain", genre: "Drama / Mystery / Thriller", duration: "75 mins", region: "China"}
+            ],
+            // 第2页：4部
+            [
+                {img: "https://picsum.photos/id/190/600/800", title: "Ocean Secret", genre: "Animation / Fantasy", duration: "88 mins", region: "China"},
+                {img: "https://picsum.photos/id/195/600/800", title: "Mountain Hero", genre: "Action / Drama", duration: "110 mins", region: "China"},
+                {img: "https://picsum.photos/id/200/600/800", title: "Desert Journey", genre: "Adventure / Thriller", duration: "102 mins", region: "China"},
+                {img: "https://picsum.photos/id/205/600/800", title: "Cyber World", genre: "Sci-Fi / Action", duration: "115 mins", region: "Co-Production"}
+            ],
+            // 第3页：4部
+            [
+                {img: "https://picsum.photos/id/210/600/800", title: "Family Bond", genre: "Drama / Comedy", duration: "95 mins", region: "China"},
+                {img: "https://picsum.photos/id/215/600/800", title: "Night Detective", genre: "Crime / Mystery", duration: "120 mins", region: "China"},
+                {img: "https://picsum.photos/id/220/600/800", title: "Sky Warrior", genre: "Action / War", duration: "112 mins", region: "China"},
+                {img: "https://picsum.photos/id/225/600/800", title: "Forest Tale", genre: "Animation / Family", duration: "85 mins", region: "China"}
+            ],
+            // 第4页：4部
+            [
+                {img: "https://picsum.photos/id/230/600/800", title: "Time Loop", genre: "Sci-Fi / Thriller", duration: "108 mins", region: "Co-Production"},
+                {img: "https://picsum.photos/id/235/600/800", title: "Urban Legend", genre: "Horror / Mystery", duration: "90 mins", region: "China"},
+                {img: "https://picsum.photos/id/240/600/800", title: "Music Dream", genre: "Musical / Drama", duration: "105 mins", region: "China"},
+                {img: "https://picsum.photos/id/245/600/800", title: "Space Mission", genre: "Sci-Fi / Adventure", duration: "128 mins", region: "Co-Production"}
+            ],
+            // 第5页：4部
+            [
+                {img: "https://picsum.photos/id/250/600/800", title: "Village Story", genre: "Drama / Rural", duration: "98 mins", region: "China"},
+                {img: "https://picsum.photos/id/255/600/800", title: "Police Story", genre: "Action / Crime", duration: "110 mins", region: "China"},
+                {img: "https://picsum.photos/id/260/600/800", title: "Love Letter", genre: "Romance / Drama", duration: "92 mins", region: "China"},
+                {img: "https://picsum.photos/id/265/600/800", title: "Ghost Hunter", genre: "Fantasy / Action", duration: "100 mins", region: "China"}
+            ],
+            // 第6页：2部（剩余2部）
+            [
+                {img: "https://picsum.photos/id/270/600/800", title: "Food Journey", genre: "Comedy / Food", duration: "88 mins", region: "China"},
+                {img: "https://picsum.photos/id/275/600/800", title: "War Memory", genre: "Drama / War", duration: "115 mins", region: "China"}
+            ]
+        ];
+
+        // 分页切换函数
+        function showPage(pageNum) {
+            // 1. 清空容器
+            const container = document.getElementById("movieContainer");
+            container.innerHTML = "";
+            
+            // 2. 获取当前页的电影数据
+            const currentMovies = moviePages[pageNum - 1];
+            
+            // 3. 生成电影卡片
+            currentMovies.forEach(movie => {
+                const card = document.createElement("div");
+                card.className = "movie-card";
+                card.innerHTML = `
+                    <img src="${movie.img}" class="movie-img" alt="${movie.title}">
+                    <div class="movie-info">
+                        <h3>${movie.title}</h3>
+                        <p>Genre: ${movie.genre}</p>
+                        <p>Duration: ${movie.duration}</p>
+                        <p>Region: ${movie.region}</p>
+                        <p class="right">Rights: Global Available</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            
+            // 4. 更新分页按钮样式
+            const buttons = document.querySelectorAll(".movie-pagination button");
+            buttons.forEach(btn => btn.classList.remove("active"));
+            buttons[pageNum - 1].classList.add("active");
+            
+            // 5. 滚动条回到最左侧
+            container.scrollLeft = 0;
+        }
+    </script>
 </section>
 
 <!-- 联系我们 -->
