@@ -1,22 +1,296 @@
----
-layout: default
-title: Home
----
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>环球光影 - 电影版权国际交易专家</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+            scroll-behavior: smooth;
+        }
 
-<h1 style="text-align:center; margin-bottom: 30px;">Our Films</h1>
+        /* 导航栏 */
+        nav {
+            background: #111;
+            padding: 15px 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            color: #e63946;
+        }
 
-<div class="movie-grid">
-    {% assign sorted = site.movies | sort:"movie_id" %}
-    {% for movie in sorted %}
-    <div class="movie-card">
-        <a href="{{ movie.url }}">
-            <img 
-                src="/assets/images/{{ movie.poster }}" 
-                alt="{{ movie.title }}"
-                class="poster"
-            >
-            <div class="movie-title">{{ movie.title }}</div>
-        </a>
+        /* 首页横幅 */
+        .banner {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://picsum.photos/id/175/1920/1080');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .banner h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        .banner p {
+            font-size: 20px;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+        .btn {
+            padding: 12px 30px;
+            background: #e63946;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #c1121f;
+        }
+
+        /* 通用区块样式 */
+        .section {
+            padding: 80px 5%;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #111;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 3px;
+            background: #e63946;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 关于我们 */
+        .about {
+            background: #f8f9fa;
+        }
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+        }
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        /* 影片库 */
+        .movies {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .movie-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .movie-card:hover {
+            transform: translateY(-10px);
+        }
+        .movie-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        .movie-info {
+            padding: 20px;
+        }
+        .movie-info h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .movie-info p {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+        .right {
+            color: #e63946;
+            font-weight: bold;
+        }
+
+        /* 联系我们 */
+        .contact {
+            background: #111;
+            color: #fff;
+            text-align: center;
+        }
+        .contact .section-title {
+            color: #fff;
+        }
+        .contact-info {
+            font-size: 18px;
+            line-height: 2;
+        }
+
+        /* 页脚 */
+        footer {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .nav-links a {
+                margin-left: 15px;
+                font-size: 14px;
+            }
+            .banner h1 {
+                font-size: 32px;
+            }
+            .section-title {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav>
+    <div class="logo">环球光影</div>
+    <div class="nav-links">
+        <a href="#home">首页</a>
+        <a href="#about">关于我们</a>
+        <a href="#movies">影片库</a>
+        <a href="#contact">联系我们</a>
     </div>
-    {% endfor %}
-</div>
+</nav>
+
+<!-- 首页横幅 -->
+<section id="home" class="banner">
+    <h1>电影版权国际交易 · 全球发行合作伙伴</h1>
+    <p>专注优质影视版权全球授权、国际发行、版权交易与影视项目合作，连接中外影视市场</p>
+    <a href="#movies" class="btn">查看影片库</a>
+</section>
+
+<!-- 关于我们 -->
+<section id="about" class="about section">
+    <h2 class="section-title">关于我们</h2>
+    <div class="about-content">
+        <div class="about-text">
+            <p>环球光影是一家专注于<strong>电影版权国际交易</strong>的专业影视公司，致力于搭建全球影视版权交流平台。</p>
+            <p>我们拥有丰富的海内外影视资源，业务覆盖全球多国/地区，主营：电影版权销售、海外发行、版权引进、联合出品、国际合拍等服务。</p>
+            <p>公司秉承专业、诚信、高效的理念，为国内外制片方、平台、发行方提供一站式版权交易解决方案，助力优质影视作品走向全球市场。</p>
+        </div>
+    </div>
+</section>
+
+<!-- 影片库 -->
+<section id="movies" class="section">
+    <h2 class="section-title">影片库 · 版权可售</h2>
+    <div class="movies">
+        <!-- 影片1 -->
+        <div class="movie-card">
+            <img src="https://picsum.photos/id/237/600/800" class="movie-img" alt="电影海报">
+            <div class="movie-info">
+                <h3>《远方的灯塔》</h3>
+                <p>类型：剧情 / 家庭</p>
+                <p>时长：118分钟</p>
+                <p>地区：中国</p>
+                <p class="right">版权：全球可售</p>
+            </div>
+        </div>
+        <!-- 影片2 -->
+        <div class="movie-card">
+            <img src="https://picsum.photos/id/177/600/800" class="movie-img" alt="电影海报">
+            <div class="movie-info">
+                <h3>《极速追击》</h3>
+                <p>类型：动作 / 犯罪</p>
+                <p>时长：105分钟</p>
+                <p>地区：中国</p>
+                <p class="right">版权：全球可售</p>
+            </div>
+        </div>
+        <!-- 影片3 -->
+        <div class="movie-card">
+            <img src="https://picsum.photos/id/180/600/800" class="movie-img" alt="电影海报">
+            <div class="movie-info">
+                <h3>《星空旅人》</h3>
+                <p>类型：科幻 / 冒险</p>
+                <p>时长：125分钟</p>
+                <p>地区：合拍</p>
+                <p class="right">版权：全球可售</p>
+            </div>
+        </div>
+        <!-- 影片4 -->
+        <div class="movie-card">
+            <img src="https://picsum.photos/id/185/600/800" class="movie-img" alt="电影海报">
+            <div class="movie-info">
+                <h3>《城市微光》</h3>
+                <p>类型：爱情 / 文艺</p>
+                <p>时长：98分钟</p>
+                <p>地区：中国</p>
+                <p class="right">版权：全球可售</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 联系我们 -->
+<section id="contact" class="contact section">
+    <h2 class="section-title">联系我们 · 版权合作</h2>
+    <div class="contact-info">
+        <p>📩 商务邮箱：copyright@filmglobal.com</p>
+        <p>📞 合作电话：+86 138 0000 8888</p>
+        <p>📍 公司地址：北京市朝阳区影视创意园A座</p>
+        <p>🌍 业务范围：全球电影版权交易 / 国际发行 / 引进授权</p>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <p>© 2026 环球光影 版权所有 | 专业电影版权国际交易公司</p>
+</footer>
+
+</body>
+</html>
