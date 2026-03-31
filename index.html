@@ -221,7 +221,7 @@
 <section id="about" class="about section">
     <h2 class="section-title">About Us</h2>
     <div class="about-content">
-        <div class="about-text" style="text-align: center; line-height: 1.8; font-size: 16px;">
+        <div class="about-text" style="text-align: center; line-height: 1.8; font-size: 16px; max-width: 1000px; margin: 0 auto;">
             <p>The company, founded in Beijing, China, is an international film rights and licensing enterprise committed to bringing high-quality Chinese films to the global market.</p>
             <p>At the same time, we acquire outstanding titles from around the world and distribute them in China.</p>
             <p>We specialize in action, thriller, sci-fi, animation, and premium genre films, offering comprehensive services including international distribution, sales representation, and worldwide licensing.</p>
@@ -231,12 +231,15 @@
 
 <!-- 影片库 -->
 <section id="movies" class="section">
-    <h2 class="section-title" style="text-align: center; position: relative;">
-        Film Catalog • Rights Available
+    <!-- 核心调整：标题文字右移，红线保持居中，• 落在红线上 -->
+    <h2 class="section-title" style="position: relative; text-align: center;">
+        <span style="position: relative; left: 25px;">Film Catalog • Rights Available</span>
+        <!-- 强制红线居中，和About Us完全对齐 -->
         <style>
-            /* 仅调整影片库标题的下划线位置 */
             #movies .section-title::after {
-                left: calc(50% - 20px) !important; /* 往左偏移20px，精准对齐• */
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                margin: 0 !important;
             }
         </style>
     </h2>
