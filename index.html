@@ -231,7 +231,15 @@
 
 <!-- 影片库 -->
 <section id="movies" class="section">
-    <h2 class="section-title" style="text-align: center; position: relative; left: 18px;">Film Catalog • Rights Available</h2>
+    <h2 class="section-title" style="text-align: center; position: relative;">
+        Film Catalog • Rights Available
+        <style>
+            /* 仅调整影片库标题的下划线位置 */
+            #movies .section-title::after {
+                left: calc(50% - 20px) !important; /* 往左偏移20px，精准对齐• */
+            }
+        </style>
+    </h2>
     <div class="movies">
         <!-- 影片1 -->
         <div class="movie-card">
