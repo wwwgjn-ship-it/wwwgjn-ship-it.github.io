@@ -177,20 +177,40 @@
             padding: 20px;
             font-size: 14px;
         }
-
-        /* 移动端适配 */
-        @media (max-width: 768px) {
-            .nav-links a {
-                margin-left: 15px;
-                font-size: 14px;
-            }
-            .banner h1 {
-                font-size: 32px;
-            }
-            .section-title {
-                font-size: 28px;
-            }
-        }
+        /* 内嵌播放器优化：确保点击区域完整 */
+.video-player {
+    width: 100%;
+    height: 600px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer; /* 鼠标移上去显示手型，提示可点击 */
+}
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .video-player {
+        height: 300px;
+    }
+    .trailer-item .video-player {
+        height: 250px;
+    }
+}
+/* 预告片item样式 */
+.trailer-item {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+.trailer-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.trailer-item h4 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+      
     </style>
 </head>
 <body>
@@ -608,72 +628,120 @@
         }
 
         // 3. 打开电影详情弹窗
-        function openModal(movieId) {
-            // 找到对应ID的电影数据
-            let targetMovie = null;
-            // 遍历所有页面的电影
-            moviePages.forEach(page => {
-                page.forEach(movie => {
-                    if (movie.id === movieId) {
-                        targetMovie = movie;
-                    }
-                });
-            });
+        // 打开电影详情弹窗（仅内嵌播放，无外部跳转）
+function openModal(movieId) {
+    // 找到对应电影数据
+    let targetMovie = null;
+    moviePages.forEach(page => {
+        page.forEach(movie => {
+            if (movie.id === movieId) {
+                targetMovie = movie;
+            }
+        });
+    });
+    if (!targetMovie) return;
 
-            if (!targetMovie) return;
+    // 通用视频iframe生成函数（强化内嵌播放参数）
+    function getVideoIframe(src, platform) {
+        const platformConfig = {
+            youtube: {
+                // YouTube强化参数：支持点击播放、自动播放（静音）、隐藏外部链接
+                attrs: 'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen controls=1 modestbranding=1'
+            },
+            vimeo: {
+                // Vimeo强化参数：支持点击播放、隐藏外部链接
+                attrs: 'allow="autoplay; fullscreen; picture-in-picture" allowfullscreen controls=1 title=0 byline=0 portrait=0'
+            },
+            bilibili: {
+                attrs: 'allowfullscreen="true" scrolling="no" border="0" frameborder="no" framespacing="0" allow="autoplay; fullscreen"'
+            },
+            dailymotion: {
+                attrs: 'allow="autoplay; fullscreen" allowfullscreen controls=1'
+            },
+            tiktok: {
+                attrs: 'allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen'
+            },
+            tengxun: {
+                attrs: 'allowfullscreen="true" allow="autoplay; fullscreen"'
+            },
+            // 默认配置
+            default: {
+                attrs: 'allowfullscreen controls=1'
+            }
+        };
 
-            // 填充弹窗内容（含视频播放器）
-            const modalDetail = document.getElementById("modalDetail");
-            modalDetail.innerHTML = `
-                <div class="detail-poster">
-                    <img src="${targetMovie.img}" alt="${targetMovie.title}">
-                </div>
-                <div class="detail-info">
-                    <h2>${targetMovie.title}</h2>
-                    <p><span class="label">Director:</span> ${targetMovie.director}</p>
-                    <p><span class="label">Cast:</span> ${targetMovie.cast}</p>
-                    <p><span class="label">Release Date:</span> ${targetMovie.releaseDate}</p>
-                    <p><span class="label">Duration:</span> ${targetMovie.duration}</p>
-                    <p><span class="label">Genre:</span> ${targetMovie.genre}</p>
-                    <p><span class="label">Region:</span> ${targetMovie.region}</p>
-                    <p><span class="label">Synopsis:</span> ${targetMovie.synopsis}</p>
-                    
-                    <!-- 预告片播放区域 -->
-                    <div class="video-section">
-                        <h3>Trailer</h3>
-                        <iframe class="video-player" src="${targetMovie.trailer}" allowfullscreen></iframe>
-                        <a href="${targetMovie.trailer.replace('embed/', 'watch?v=')}" target="_blank" class="video-btn">Watch on YouTube</a>
-                    </div>
+        const config = platformConfig[platform] || platformConfig.default;
+        return `<iframe class="video-player" src="${src}" ${config.attrs}></iframe>`;
+    }
 
-                    <!-- 全片播放区域 -->
-                    <div class="video-section">
-                        <h3>Full Movie</h3>
-                        <iframe class="video-player" src="${targetMovie.fullMovie}" allowfullscreen></iframe>
-                        <a href="${targetMovie.fullMovie.replace('player.vimeo.com/video/', 'vimeo.com/')}" target="_blank" class="video-btn">Watch on Vimeo</a>
-                    </div>
+    // 生成多个预告片的HTML（无跳转按钮）
+    let trailersHtml = '';
+    if (targetMovie.trailers && Array.isArray(targetMovie.trailers)) {
+        targetMovie.trailers.forEach((trailer, index) => {
+            const trailerName = trailer.name || `Trailer ${index + 1}`;
+            trailersHtml += `
+                <div class="trailer-item" style="margin-bottom: 20px;">
+                    <h4>${trailerName}</h4>
+                    ${getVideoIframe(trailer.url, trailer.platform)}
                 </div>
             `;
+        });
+    } else if (targetMovie.trailer) {
+        // 兼容单个预告片
+        trailersHtml = `
+            <div class="trailer-item">
+                <h4>Trailer</h4>
+                ${getVideoIframe(targetMovie.trailer, targetMovie.trailerPlatform)}
+            </div>
+        `;
+    }
 
-            // 显示弹窗
-            document.getElementById("movieModal").style.display = "block";
-            // 禁止页面滚动
-            document.body.style.overflow = "hidden";
-        }
+    // 填充弹窗内容（移除所有跳转按钮）
+    const modalDetail = document.getElementById("modalDetail");
+    modalDetail.innerHTML = `
+        <div class="detail-poster">
+            <img src="${targetMovie.img}" alt="${targetMovie.title}">
+        </div>
+        <div class="detail-info">
+            <h2>${targetMovie.title}</h2>
+            <p><span class="label">Director:</span> ${targetMovie.director}</p>
+            <p><span class="label">Cast:</span> ${targetMovie.cast}</p>
+            <p><span class="label">Release Date:</span> ${targetMovie.releaseDate}</p>
+            <p><span class="label">Duration:</span> ${targetMovie.duration}</p>
+            <p><span class="label">Genre:</span> ${targetMovie.genre}</p>
+            <p><span class="label">Region:</span> ${targetMovie.region}</p>
+            <p><span class="label">Synopsis:</span> ${targetMovie.synopsis}</p>
+            
+            <!-- 预告片区域（仅内嵌播放器，无跳转按钮） -->
+            <div class="video-section">
+                <h3>Trailers</h3>
+                ${trailersHtml}
+            </div>
 
-        // 4. 关闭弹窗
-        function closeModal() {
-            document.getElementById("movieModal").style.display = "none";
-            // 恢复页面滚动
-            document.body.style.overflow = "auto";
-        }
+            <!-- 全片区域（仅内嵌播放器，无跳转按钮） -->
+            <div class="video-section">
+                <h3>Full Movie</h3>
+                ${getVideoIframe(targetMovie.fullMovie, targetMovie.fullMoviePlatform)}
+            </div>
+        </div>
+    `;
 
-        // 点击弹窗外部关闭
-        window.onclick = function(event) {
-            const modal = document.getElementById("movieModal");
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
+    // 显示弹窗
+    document.getElementById("movieModal").style.display = "block";
+    document.body.style.overflow = "hidden";
+}
+
+// 保留closeModal和点击外部关闭的逻辑（无需修改）
+function closeModal() {
+    document.getElementById("movieModal").style.display = "none";
+    document.body.style.overflow = "auto";
+}
+window.onclick = function(event) {
+    const modal = document.getElementById("movieModal");
+    if (event.target === modal) {
+        closeModal();
+    }
+}
     </script>
 </section>
 
